@@ -64,6 +64,14 @@ public class TestTemplateProcessor implements DataSourceType{
 		//4. 录制该静态Mock的行为模式（针对的是静态方法）；
         //------------------------------------------------
         //以上流程请在这里实现：
+		DataSourceConfig dsc1 = Easymock.createMock(DataSourceConfig.class);
+		DataHolder dh1 = Easymork.expect(dsc1.getConstDataSource().getDataHolder("sex")).andReturn(DataHolder);
+		assertNotNull("变量sex解析为空", dh1);
+		assertEquals("变量sex值获取错误","Female",dh1.getValue());
+
+		PowerMock.mockstatic(DataSourceConfig.class);
+		Easymock.expect(DataSourceConfig.getConstDataSource().getDataHolder("readme")).andReturn("变量readme解析为空");
+		assertEquals("变量readme值获取错误","5",DataSourceConfig.getConstDataSource().getDataHolder("readme").getValue());
         //
         //
         // 这里写代码
